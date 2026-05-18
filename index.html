@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Mini Games</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- MENU PRINCIPAL -->
+    <div id="menu-screen" class="screen active">
+      <h1>🎮 Mini Games</h1>
+      <p class="subtitle">Elige un juego</p>
+      <div class="menu-grid">
+        <button class="menu-btn" data-game="tictactoe">
+          <span class="icon">❌⭕</span>
+          <span class="label">Tres en Raya</span>
+        </button>
+        <button class="menu-btn" data-game="memory">
+          <span class="icon">🃏</span>
+          <span class="label">Memoria</span>
+        </button>
+        <button class="menu-btn" data-game="snake">
+          <span class="icon">🐍</span>
+          <span class="label">Snake</span>
+        </button>
+        <button class="menu-btn" data-game="rps">
+          <span class="icon">✂️</span>
+          <span class="label">Piedra Papel Tijera</span>
+        </button>
+        <button class="menu-btn" data-game="simon">
+          <span class="icon">🔴🟢</span>
+          <span class="label">Simon Dice</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- TRES EN RAYA -->
+    <div id="game-tictactoe" class="screen game-screen">
+      <div class="game-header">
+        <button class="back-btn" data-back="menu">← Volver</button>
+        <h2>Tres en Raya</h2>
+        <button class="reset-btn" data-reset="tictactoe">🔄</button>
+      </div>
+      <div class="game-area" id="ttt-area">
+        <div id="ttt-status" class="game-status">Tu turno (X)</div>
+        <div class="ttt-board" id="ttt-board">
+          <div class="cell" data-index="0"></div>
+          <div class="cell" data-index="1"></div>
+          <div class="cell" data-index="2"></div>
+          <div class="cell" data-index="3"></div>
+          <div class="cell" data-index="4"></div>
+          <div class="cell" data-index="5"></div>
+          <div class="cell" data-index="6"></div>
+          <div class="cell" data-index="7"></div>
+          <div class="cell" data-index="8"></div>
+        </div>
+        <div id="ttt-result" class="result-overlay hidden">
+          <p id="ttt-message"></p>
+          <button class="play-again-btn" data-reset="tictactoe">Jugar otra vez</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEMORIA -->
+    <div id="game-memory" class="screen game-screen">
+      <div class="game-header">
+        <button class="back-btn" data-back="menu">← Volver</button>
+        <h2>Memoria</h2>
+        <button class="reset-btn" data-reset="memory">🔄</button>
+      </div>
+      <div class="game-area" id="memory-area">
+        <div class="game-status">
+          <span id="memory-moves">Movimientos: 0</span>
+          <span id="memory-pairs">Pares: 0/8</span>
+        </div>
+        <div class="memory-board" id="memory-board"></div>
+        <div id="memory-result" class="result-overlay hidden">
+          <p id="memory-message"></p>
+          <button class="play-again-btn" data-reset="memory">Jugar otra vez</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SNAKE -->
+    <div id="game-snake" class="screen game-screen">
+      <div class="game-header">
+        <button class="back-btn" data-back="menu">← Volver</button>
+        <h2>Snake</h2>
+        <button class="reset-btn" data-reset="snake">🔄</button>
+      </div>
+      <div class="game-area" id="snake-area">
+        <div class="game-status">
+          <span>Puntaje: <span id="snake-score">0</span></span>
+        </div>
+        <canvas id="snake-canvas" width="300" height="300"></canvas>
+        <div class="snake-controls">
+          <button class="dir-btn" data-dir="up">↑</button>
+          <div>
+            <button class="dir-btn" data-dir="left">←</button>
+            <button class="dir-btn" data-dir="down">↓</button>
+            <button class="dir-btn" data-dir="right">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIEDRA PAPEL TIJERA -->
+    <div id="game-rps" class="screen game-screen">
+      <div class="game-header">
+        <button class="back-btn" data-back="menu">← Volver</button>
+        <h2>Piedra Papel Tijera</h2>
+        <button class="reset-btn" data-reset="rps">🔄</button>
+      </div>
+      <div class="game-area" id="rps-area">
+        <div id="rps-score" class="game-status">Tú: 0 | PC: 0</div>
+        <div class="rps-choices">
+          <div class="rps-player" id="rps-player-choice">🤚</div>
+          <div class="rps-vs">VS</div>
+          <div class="rps-player" id="rps-pc-choice">🤚</div>
+        </div>
+        <div id="rps-result-text">¡Elige tu jugada!</div>
+        <div class="rps-buttons">
+          <button class="rps-btn" data-move="rock">🪨 Piedra</button>
+          <button class="rps-btn" data-move="paper">📄 Papel</button>
+          <button class="rps-btn" data-move="scissors">✂️ Tijera</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIMON DICE -->
+    <div id="game-simon" class="screen game-screen">
+      <div class="game-header">
+        <button class="back-btn" data-back="menu">← Volver</button>
+        <h2>Simon Dice</h2>
+        <button class="reset-btn" data-reset="simon">🔄</button>
+      </div>
+      <div class="game-area" id="simon-area">
+        <div id="simon-status" class="game-status">Presiona "Empezar"</div>
+        <div id="simon-round" class="simon-round">Ronda: 0</div>
+        <div class="simon-grid">
+          <button class="simon-pad" data-color="0" style="background:#c00"></button>
+          <button class="simon-pad" data-color="1" style="background:#0a0"></button>
+          <button class="simon-pad" data-color="2" style="background:#cc0"></button>
+          <button class="simon-pad" data-color="3" style="background:#00c"></button>
+        </div>
+        <button id="simon-start" class="play-again-btn">Empezar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/telegram.js"></script>
+  <script src="js/games/tictactoe.js"></script>
+  <script src="js/games/memory.js"></script>
+  <script src="js/games/snake.js"></script>
+  <script src="js/games/rps.js"></script>
+  <script src="js/games/simon.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
