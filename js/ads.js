@@ -25,10 +25,13 @@
       try {
         await waitForSDK();
         console.log('[Ads] Showing rewarded ad');
-        return window[SDK_NAME]();
+        const result = await window[SDK_NAME]();
+        console.log('[Ads] Ad completed', result);
+        return result;
       } catch (e) {
-        console.warn('[Ads] Rewarded ad unavailable:', e.message);
-        return Promise.reject(e);
+        console.warn('[Ads] SDK unavailable, using fallback:', e.message);
+        await new Promise(r => setTimeout(r, 1500));
+        return 'fallback';
       }
     },
 
