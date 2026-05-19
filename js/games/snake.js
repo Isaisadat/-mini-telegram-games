@@ -121,6 +121,15 @@
         case 'right': setDirection(1, 0); break;
       }
     });
+    btn.addEventListener('touchend', e => {
+      e.preventDefault();
+      switch(btn.dataset.dir) {
+        case 'up': setDirection(0, -1); break;
+        case 'down': setDirection(0, 1); break;
+        case 'left': setDirection(-1, 0); break;
+        case 'right': setDirection(1, 0); break;
+      }
+    });
   });
 
   document.addEventListener('resetGame', e => {

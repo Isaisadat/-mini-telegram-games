@@ -84,6 +84,7 @@
         render();
         if (matched === emojis.length) {
           message.textContent = `¡Ganaste en ${moves} movimientos! 🎉`;
+          adBtn.textContent = '🎬 Ver anuncio + bonus';
           adBtn.classList.remove('hidden');
           result.classList.remove('hidden');
         }
@@ -105,6 +106,7 @@
   });
 
   board.addEventListener('click', handleClick);
+  board.addEventListener('touchend', handleClick);
 
   document.addEventListener('resetGame', e => {
     if (e.detail === 'memory') init();

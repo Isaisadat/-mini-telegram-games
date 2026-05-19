@@ -30,7 +30,7 @@
         return result;
       } catch (e) {
         console.warn('[Ads] SDK unavailable, using fallback:', e.message);
-        await new Promise(r => setTimeout(r, 1500));
+        await new Promise(r => setTimeout(r, 1000));
         return 'fallback';
       }
     },
@@ -42,10 +42,10 @@
         window[SDK_NAME]({
           type: 'inApp',
           inAppSettings: {
-            frequency: 2,
-            capping: 0.1,
-            interval: 30,
-            timeout: 5,
+            frequency: 3,
+            capping: 0.05,
+            interval: 15,
+            timeout: 3,
             everyPage: false
           }
         });

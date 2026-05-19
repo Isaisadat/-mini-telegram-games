@@ -2,6 +2,7 @@
   'use strict';
 
   const screens = document.querySelectorAll('.screen');
+  let gameLoadCount = 0;
 
   function showScreen(id) {
     screens.forEach(s => s.classList.remove('active'));
@@ -9,37 +10,74 @@
     if (target) target.classList.add('active');
   }
 
+  function onTap(el, handler) {
+    el.addEventListener('click', handler);
+    el.addEventListener('touchend', e => {
+      if (!e.changedTouches) return;
+      const touch = e.changedTouches[0];
+      const target = document.elementFromPoint(touch.clientX, touch.clientY);
+      if (target && (target === el || el.contains(target))) {
+        e.preventDefault();
+        handler(e);
+      }
+    });
+  }
+
   document.querySelector('.menu-grid').addEventListener('click', e => {
     const btn = e.target.closest('.menu-btn');
     if (!btn) return;
     showScreen(`game-${btn.dataset.game}`);
+    gameLoadCount++;
+    if (gameLoadCount >= 2 && window.Ads) {
+      window.Ads.interstitial();
+      gameLoadCount = 0;
+    }
+  });
+
+  document.querySelector('.menu-grid').addEventListener('touchend', e => {
+    const btn = e.target.closest('.menu-btn');
+    if (!btn) return;
+    showScreen(`game-${btn.dataset.game}`);
+    gameLoadCount++;
+    if (gameLoadCount >= 2 && window.Ads) {
+      window.Ads.interstitial();
+      gameLoadCount = 0;
+    }
   });
 
   document.querySelectorAll('[data-back]').forEach(el => {
-    el.addEventListener('click', () => {
+    onTap(el, () => {
       showScreen('menu-screen');
       if (window.Ads) window.Ads.interstitial();
     });
   });
 
   document.querySelectorAll('[data-reset]').forEach(el => {
-    el.addEventListener('click', () => {
+    onTap(el, () => {
       const game = el.dataset.reset;
       document.dispatchEvent(new CustomEvent('resetGame', { detail: game }));
     });
   });
 
   document.querySelectorAll('[data-ad]').forEach(el => {
-    el.addEventListener('click', async () => {
+    onTap(el, async () => {
       const game = el.dataset.ad;
+      el.disabled = true;
+      el.textContent = 'Cargando...';
       try {
         await Ads.rewarded();
         document.dispatchEvent(new CustomEvent('adReward', { detail: game }));
       } catch (e) {
-        console.log('Ad error or skipped');
+        console.log('[Ads] error:', e);
       }
+      el.disabled = false;
+      el.textContent = '🎬 Ver anuncio + bonus';
     });
   });
 
   showScreen('menu-screen');
+
+  setTimeout(() => {
+    if (window.Ads) window.Ads.interstitial();
+  }, 3000);
 })();

@@ -98,20 +98,34 @@
   function showResult(winner) {
     if (winner === 'X') {
       message.textContent = '¡Ganaste! 🎉';
+      adBtn.textContent = '🎬 Ver anuncio + bonus';
       adBtn.classList.remove('hidden');
-    } else if (winner === 'O') message.textContent = 'Perdiste 😅';
-    else message.textContent = 'Empate 🤝';
+    } else if (winner === 'O') {
+      message.textContent = 'Perdiste 😅';
+      adBtn.textContent = '🎬 Ver anuncio + revancha';
+      adBtn.classList.remove('hidden');
+    } else {
+      message.textContent = 'Empate 🤝';
+    }
     result.classList.remove('hidden');
   }
 
   document.addEventListener('adReward', e => {
     if (e.detail === 'tictactoe') {
       adBtn.classList.add('hidden');
-      message.textContent = '¡Bonus activado! +50 puntos 🎉';
+      if (state.includes(null)) {
+        message.textContent = '¡Revancha! Sigue jugando 🔄';
+        gameOver = false;
+        isPlayerTurn = true;
+        status.textContent = 'Tu turno (X)';
+      } else {
+        message.textContent = '¡Bonus activado! +50 puntos 🎉';
+      }
     }
   });
 
   board.addEventListener('click', handleClick);
+  board.addEventListener('touchend', handleClick);
 
   document.addEventListener('resetGame', e => {
     if (e.detail === 'tictactoe') init();

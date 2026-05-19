@@ -7,7 +7,6 @@
   const startBtn = document.getElementById('simon-start');
   const adBtn = document.getElementById('simon-ad-btn');
 
-  const colors = ['🔴','🟢','🟡','🔵'];
   let sequence = [];
   let playerStep = 0;
   let round = 0;
@@ -43,6 +42,11 @@
     sequence.push(next);
 
     playSequence();
+
+    if (round > 0 && round % 3 === 0) {
+      adBtn.textContent = '🎬 Ver anuncio + bonus';
+      adBtn.classList.remove('hidden');
+    }
   }
 
   function playSequence() {
@@ -79,7 +83,8 @@
       pads.forEach(p => p.disabled = true);
       acceptingInput = false;
       status.textContent = `Perdiste en ronda ${round} 😅`;
-      if (round >= 3) adBtn.classList.remove('hidden');
+      adBtn.textContent = '🎬 Ver anuncio + continuar';
+      adBtn.classList.remove('hidden');
       return;
     }
 
@@ -95,14 +100,20 @@
   document.addEventListener('adReward', e => {
     if (e.detail === 'simon') {
       adBtn.classList.add('hidden');
-      round += 2;
+      round += 3;
       roundEl.textContent = `Ronda: ${round}`;
-      status.textContent = '¡Bonus +2 rondas! 🎉';
+      status.textContent = '¡Bonus +3 rondas! 🎉';
+      acceptingInput = true;
+      pads.forEach(p => p.disabled = false);
     }
   });
 
-  pads.forEach(p => p.addEventListener('click', handlePadClick));
+  pads.forEach(p => {
+    p.addEventListener('click', handlePadClick);
+    p.addEventListener('touchend', handlePadClick);
+  });
   startBtn.addEventListener('click', startGame);
+  startBtn.addEventListener('touchend', startGame);
 
   document.addEventListener('resetGame', e => {
     if (e.detail === 'simon') init();
