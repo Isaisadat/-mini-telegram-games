@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Mini Games</title>
   <link rel="stylesheet" href="styles.css">
+  <script src='//libtl.com/sdk.js' data-zone='11025846' data-sdk='show_11025846'></script>
 </head>
 <body>
   <div id="app">
@@ -58,6 +59,7 @@
         </div>
         <div id="ttt-result" class="result-overlay hidden">
           <p id="ttt-message"></p>
+          <button class="ad-btn hidden" id="ttt-ad-btn" data-ad="tictactoe">🎬 Ver anuncio + bonus</button>
           <button class="play-again-btn" data-reset="tictactoe">Jugar otra vez</button>
         </div>
       </div>
@@ -78,6 +80,7 @@
         <div class="memory-board" id="memory-board"></div>
         <div id="memory-result" class="result-overlay hidden">
           <p id="memory-message"></p>
+          <button class="ad-btn hidden" id="memory-ad-btn" data-ad="memory">🎬 Ver anuncio + bonus</button>
           <button class="play-again-btn" data-reset="memory">Jugar otra vez</button>
         </div>
       </div>
@@ -103,6 +106,7 @@
             <button class="dir-btn" data-dir="right">→</button>
           </div>
         </div>
+        <button class="ad-btn hidden" id="snake-ad-btn" data-ad="snake">🎬 Ver anuncio + continuar</button>
       </div>
     </div>
 
@@ -126,6 +130,7 @@
           <button class="rps-btn" data-move="paper">📄 Papel</button>
           <button class="rps-btn" data-move="scissors">✂️ Tijera</button>
         </div>
+        <button class="ad-btn hidden" id="rps-ad-btn" data-ad="rps">🎬 Ver anuncio + bonus</button>
       </div>
     </div>
 
@@ -146,6 +151,7 @@
           <button class="simon-pad" data-color="3" style="background:#00c"></button>
         </div>
         <button id="simon-start" class="play-again-btn">Empezar</button>
+        <button class="ad-btn hidden" id="simon-ad-btn" data-ad="simon">🎬 Ver anuncio + bonus</button>
       </div>
     </div>
   </div>
@@ -156,6 +162,7 @@
   <script src="js/games/snake.js"></script>
   <script src="js/games/rps.js"></script>
   <script src="js/games/simon.js"></script>
+  <script src="js/ads.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

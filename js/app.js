@@ -18,6 +18,7 @@
   document.querySelectorAll('[data-back]').forEach(el => {
     el.addEventListener('click', () => {
       showScreen('menu-screen');
+      if (window.Ads) window.Ads.interstitial();
     });
   });
 
@@ -26,6 +27,19 @@
       const game = el.dataset.reset;
       document.dispatchEvent(new CustomEvent('resetGame', { detail: game }));
     });
+  });
+
+  document.querySelectorAll('[data-ad]').forEach(el => {
+    el.addEventListener('click', async () => {
+      const game = el.dataset.ad;
+      try {
+        await Ads.rewarded();
+        document.dispatchEvent(new CustomEvent('adReward', { detail: game }));
+      } catch (e) {
+        console.log('Ad error or skipped');
+      }
+    });
+  });
   });
 
   showScreen('menu-screen');

@@ -4,6 +4,7 @@
   const canvas = document.getElementById('snake-canvas');
   const ctx = canvas.getContext('2d');
   const scoreEl = document.getElementById('snake-score');
+  const adBtn = document.getElementById('snake-ad-btn');
 
   const SIZE = 20;
   const COLS = 15;
@@ -12,6 +13,7 @@
 
   function init() {
     if (gameLoop) { clearInterval(gameLoop); gameLoop = null; }
+    adBtn.classList.add('hidden');
     snake = [{x: 7, y: 7}];
     dir = {x: 1, y: 0};
     nextDir = {x: 1, y: 0};
@@ -82,7 +84,19 @@
     ctx.font = '20px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(`Game Over - ${score} pts`, canvas.width/2, canvas.height/2);
+    adBtn.textContent = '🎬 Ver anuncio + continuar';
+    adBtn.classList.remove('hidden');
   }
+
+  document.addEventListener('adReward', e => {
+    if (e.detail === 'snake') {
+      adBtn.classList.add('hidden');
+      score += 5;
+      scoreEl.textContent = score;
+      running = true;
+      startLoop();
+    }
+  });
 
   function setDirection(dx, dy) {
     if (dir.x + dx === 0 && dir.y + dy === 0) return;

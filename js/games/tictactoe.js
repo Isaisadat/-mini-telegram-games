@@ -5,6 +5,7 @@
   const status = document.getElementById('ttt-status');
   const result = document.getElementById('ttt-result');
   const message = document.getElementById('ttt-message');
+  const adBtn = document.getElementById('ttt-ad-btn');
 
   let state = Array(9).fill(null);
   let isPlayerTurn = true;
@@ -15,6 +16,7 @@
     isPlayerTurn = true;
     gameOver = false;
     result.classList.add('hidden');
+    adBtn.classList.add('hidden');
     status.textContent = 'Tu turno (X)';
     render();
   }
@@ -94,11 +96,20 @@
   }
 
   function showResult(winner) {
-    if (winner === 'X') message.textContent = '¡Ganaste! 🎉';
-    else if (winner === 'O') message.textContent = 'Perdiste 😅';
+    if (winner === 'X') {
+      message.textContent = '¡Ganaste! 🎉';
+      adBtn.classList.remove('hidden');
+    } else if (winner === 'O') message.textContent = 'Perdiste 😅';
     else message.textContent = 'Empate 🤝';
     result.classList.remove('hidden');
   }
+
+  document.addEventListener('adReward', e => {
+    if (e.detail === 'tictactoe') {
+      adBtn.classList.add('hidden');
+      message.textContent = '¡Bonus activado! +50 puntos 🎉';
+    }
+  });
 
   board.addEventListener('click', handleClick);
 

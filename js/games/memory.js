@@ -6,6 +6,7 @@
   const pairsEl = document.getElementById('memory-pairs');
   const result = document.getElementById('memory-result');
   const message = document.getElementById('memory-message');
+  const adBtn = document.getElementById('memory-ad-btn');
 
   const emojis = ['🍎','🍊','🍋','🍇','🍓','🍒','🍑','🥝'];
   let cards = [];
@@ -22,6 +23,7 @@
     moves = 0;
     locked = false;
     result.classList.add('hidden');
+    adBtn.classList.add('hidden');
     updateStats();
     render();
   }
@@ -82,6 +84,7 @@
         render();
         if (matched === emojis.length) {
           message.textContent = `¡Ganaste en ${moves} movimientos! 🎉`;
+          adBtn.classList.remove('hidden');
           result.classList.remove('hidden');
         }
       } else {
@@ -93,6 +96,13 @@
       }
     }
   }
+
+  document.addEventListener('adReward', e => {
+    if (e.detail === 'memory') {
+      adBtn.classList.add('hidden');
+      message.textContent = '¡Bonus activado! +50 puntos 🎉';
+    }
+  });
 
   board.addEventListener('click', handleClick);
 

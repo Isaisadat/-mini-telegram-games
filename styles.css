@@ -349,6 +349,26 @@ h1 {
   opacity: 0.8;
 }
 
+.ad-btn {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #f7971e, #ffd200);
+  color: #333;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ad-btn:active {
+  transform: scale(0.95);
+}
+
+.ad-btn.hidden {
+  display: none;
+}
+
 /* TELEGRAM BOTTOM SAFE AREA */
 .screen.active {
   padding-bottom: env(safe-area-inset-bottom, 16px);

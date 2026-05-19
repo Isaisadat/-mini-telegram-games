@@ -5,6 +5,7 @@
   const status = document.getElementById('simon-status');
   const roundEl = document.getElementById('simon-round');
   const startBtn = document.getElementById('simon-start');
+  const adBtn = document.getElementById('simon-ad-btn');
 
   const colors = ['🔴','🟢','🟡','🔵'];
   let sequence = [];
@@ -21,6 +22,7 @@
     acceptingInput = false;
     roundEl.textContent = 'Ronda: 0';
     status.textContent = 'Presiona "Empezar"';
+    adBtn.classList.add('hidden');
     pads.forEach(p => p.disabled = true);
   }
 
@@ -77,6 +79,7 @@
       pads.forEach(p => p.disabled = true);
       acceptingInput = false;
       status.textContent = `Perdiste en ronda ${round} 😅`;
+      if (round >= 3) adBtn.classList.remove('hidden');
       return;
     }
 
@@ -88,6 +91,15 @@
       setTimeout(nextRound, 800);
     }
   }
+
+  document.addEventListener('adReward', e => {
+    if (e.detail === 'simon') {
+      adBtn.classList.add('hidden');
+      round += 2;
+      roundEl.textContent = `Ronda: ${round}`;
+      status.textContent = '¡Bonus +2 rondas! 🎉';
+    }
+  });
 
   pads.forEach(p => p.addEventListener('click', handlePadClick));
   startBtn.addEventListener('click', startGame);

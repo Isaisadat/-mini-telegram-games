@@ -5,6 +5,7 @@
   const pcChoice = document.getElementById('rps-pc-choice');
   const resultText = document.getElementById('rps-result-text');
   const scoreEl = document.getElementById('rps-score');
+  const adBtn = document.getElementById('rps-ad-btn');
 
   const moves = { rock: '🪨', paper: '📄', scissors: '✂️' };
   let playerScore = 0, pcScore = 0;
@@ -15,6 +16,7 @@
     playerChoice.textContent = '🤚';
     pcChoice.textContent = '🤚';
     resultText.textContent = '¡Elige tu jugada!';
+    adBtn.classList.add('hidden');
     updateScore();
   }
 
@@ -46,6 +48,7 @@
     if (winner === 'player') {
       playerScore++;
       resultText.textContent = '¡Ganaste! 🎉';
+      if (playerScore % 3 === 0) adBtn.classList.remove('hidden');
     } else if (winner === 'pc') {
       pcScore++;
       resultText.textContent = 'Perdiste 😅';
@@ -54,6 +57,15 @@
     }
     updateScore();
   }
+
+  document.addEventListener('adReward', e => {
+    if (e.detail === 'rps') {
+      adBtn.classList.add('hidden');
+      playerScore += 2;
+      updateScore();
+      resultText.textContent = '¡Bonus +2 puntos! 🎉';
+    }
+  });
 
   document.querySelector('.rps-buttons').addEventListener('click', handleMove);
 
