@@ -30,7 +30,7 @@
         return result;
       } catch (e) {
         console.warn('[Ads] SDK unavailable, using fallback:', e.message);
-        await new Promise(r => setTimeout(r, 1000));
+        await new Promise(r => setTimeout(r, 800));
         return 'fallback';
       }
     },
@@ -42,15 +42,28 @@
         window[SDK_NAME]({
           type: 'inApp',
           inAppSettings: {
-            frequency: 3,
-            capping: 0.05,
-            interval: 15,
-            timeout: 3,
+            frequency: 5,
+            capping: 0.03,
+            interval: 10,
+            timeout: 2,
             everyPage: false
           }
         });
       } catch (e) {
         console.warn('[Ads] Interstitial unavailable:', e.message);
+      }
+    },
+
+    async dailyBonus() {
+      const today = new Date().toDateString();
+      const claimed = localStorage.getItem('adDailyBonus');
+      if (claimed === today) return false;
+      try {
+        await this.rewarded();
+        localStorage.setItem('adDailyBonus', today);
+        return true;
+      } catch (e) {
+        return false;
       }
     }
   };

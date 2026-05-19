@@ -50,19 +50,17 @@
     if (winner === 'player') {
       playerScore++;
       resultText.textContent = '¡Ganaste! 🎉';
-      if (roundCount % 2 === 0) {
-        adBtn.textContent = '🎬 Ver anuncio + bonus';
-        adBtn.classList.remove('hidden');
-      }
+      adBtn.textContent = '🎬 Ver anuncio + bonus';
+      adBtn.classList.remove('hidden');
     } else if (winner === 'pc') {
       pcScore++;
       resultText.textContent = 'Perdiste 😅';
-      if (roundCount % 2 === 0) {
-        adBtn.textContent = '🎬 Ver anuncio + revancha';
-        adBtn.classList.remove('hidden');
-      }
+      adBtn.textContent = '🎬 Ver anuncio + revancha';
+      adBtn.classList.remove('hidden');
     } else {
       resultText.textContent = 'Empate 🤝';
+      adBtn.textContent = '🎬 Ver anuncio + bonus';
+      adBtn.classList.remove('hidden');
     }
     updateScore();
   }
@@ -70,9 +68,9 @@
   document.addEventListener('adReward', e => {
     if (e.detail === 'rps') {
       adBtn.classList.add('hidden');
-      playerScore += 3;
+      playerScore += 5;
       updateScore();
-      resultText.textContent = '¡Bonus +3 puntos! 🎉';
+      resultText.textContent = '¡Bonus +5 puntos! 🎉';
     }
   });
 

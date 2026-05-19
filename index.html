@@ -34,6 +34,18 @@
           <span class="icon">🔴🟢</span>
           <span class="label">Simon Dice</span>
         </button>
+        <button class="menu-btn" data-game="2048">
+          <span class="icon">🔢</span>
+          <span class="label">2048</span>
+        </button>
+        <button class="menu-btn" data-game="flappy">
+          <span class="icon">🐤</span>
+          <span class="label">Flappy Bird</span>
+        </button>
+        <button class="menu-btn" data-game="hangman">
+          <span class="icon">💀</span>
+          <span class="label">Ahorcado</span>
+        </button>
       </div>
     </div>
 
@@ -154,6 +166,64 @@
         <button class="ad-btn hidden" id="simon-ad-btn" data-ad="simon">🎬 Ver anuncio + bonus</button>
       </div>
     </div>
+
+    <!-- 2048 -->
+    <div id="game-2048" class="screen game-screen">
+      <div class="game-header">
+        <button class="back-btn" data-back="menu">← Volver</button>
+        <h2>2048</h2>
+        <button class="reset-btn" data-reset="2048">🔄</button>
+      </div>
+      <div class="game-area" id="g2048-area">
+        <div class="game-status">
+          <span>Puntaje: <span id="g2048-score">0</span></span>
+          <span> | Mejor: <span id="g2048-best">0</span></span>
+        </div>
+        <div class="g2048-board" id="g2048-board"></div>
+        <div class="g2048-info">Usa flechas o desliza</div>
+        <div id="g2048-result" class="result-overlay hidden">
+          <p id="g2048-message"></p>
+          <button class="ad-btn hidden" id="g2048-ad-btn" data-ad="2048">🎬 Ver anuncio + bonus</button>
+          <button class="play-again-btn" data-reset="2048">Jugar otra vez</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLAPPY BIRD -->
+    <div id="game-flappy" class="screen game-screen">
+      <div class="game-header">
+        <button class="back-btn" data-back="menu">← Volver</button>
+        <h2>Flappy Bird</h2>
+        <button class="reset-btn" data-reset="flappy">🔄</button>
+      </div>
+      <div class="game-area" id="flappy-area">
+        <div class="game-status">
+          <span>Puntaje: <span id="flappy-score">0</span></span>
+        </div>
+        <canvas id="flappy-canvas" width="300" height="400"></canvas>
+        <button class="ad-btn hidden" id="flappy-ad-btn" data-ad="flappy">🎬 Ver anuncio + bonus</button>
+      </div>
+    </div>
+
+    <!-- AHORCADO -->
+    <div id="game-hangman" class="screen game-screen">
+      <div class="game-header">
+        <button class="back-btn" data-back="menu">← Volver</button>
+        <h2>Ahorcado</h2>
+        <button class="reset-btn" data-reset="hangman">🔄</button>
+      </div>
+      <div class="game-area" id="hang-area">
+        <pre id="hang-draw" class="hang-draw"></pre>
+        <div id="hang-word" class="hang-word"></div>
+        <div id="hang-status" class="game-status">Adivina la palabra</div>
+        <div class="hang-letters" id="hang-letters"></div>
+        <button class="ad-btn hidden" id="hang-ad-btn" data-ad="hangman">🎬 Ver anuncio + bonus</button>
+        <div id="hang-result" class="result-overlay hidden">
+          <p id="hang-message"></p>
+          <button class="play-again-btn" data-reset="hangman">Jugar otra vez</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="js/telegram.js"></script>
@@ -162,6 +232,9 @@
   <script src="js/games/snake.js"></script>
   <script src="js/games/rps.js"></script>
   <script src="js/games/simon.js"></script>
+  <script src="js/games/2048.js"></script>
+  <script src="js/games/flappy.js"></script>
+  <script src="js/games/hangman.js"></script>
   <script src="js/ads.js"></script>
   <script src="js/app.js"></script>
 </body>

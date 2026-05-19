@@ -91,7 +91,7 @@
   document.addEventListener('adReward', e => {
     if (e.detail === 'snake') {
       adBtn.classList.add('hidden');
-      score += 5;
+      score += 10;
       scoreEl.textContent = score;
       running = true;
       startLoop();

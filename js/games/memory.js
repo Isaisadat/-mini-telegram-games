@@ -101,7 +101,8 @@
   document.addEventListener('adReward', e => {
     if (e.detail === 'memory') {
       adBtn.classList.add('hidden');
-      message.textContent = '¡Bonus activado! +50 puntos 🎉';
+      message.textContent = '¡Bonus activado! +100 puntos 🎉';
+      setTimeout(init, 1500);
     }
   });
 

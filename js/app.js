@@ -2,7 +2,6 @@
   'use strict';
 
   const screens = document.querySelectorAll('.screen');
-  let gameLoadCount = 0;
 
   function showScreen(id) {
     screens.forEach(s => s.classList.remove('active'));
@@ -27,22 +26,14 @@
     const btn = e.target.closest('.menu-btn');
     if (!btn) return;
     showScreen(`game-${btn.dataset.game}`);
-    gameLoadCount++;
-    if (gameLoadCount >= 2 && window.Ads) {
-      window.Ads.interstitial();
-      gameLoadCount = 0;
-    }
+    if (window.Ads) setTimeout(() => window.Ads.interstitial(), 500);
   });
 
   document.querySelector('.menu-grid').addEventListener('touchend', e => {
     const btn = e.target.closest('.menu-btn');
     if (!btn) return;
     showScreen(`game-${btn.dataset.game}`);
-    gameLoadCount++;
-    if (gameLoadCount >= 2 && window.Ads) {
-      window.Ads.interstitial();
-      gameLoadCount = 0;
-    }
+    if (window.Ads) setTimeout(() => window.Ads.interstitial(), 500);
   });
 
   document.querySelectorAll('[data-back]').forEach(el => {
@@ -56,6 +47,7 @@
     onTap(el, () => {
       const game = el.dataset.reset;
       document.dispatchEvent(new CustomEvent('resetGame', { detail: game }));
+      if (window.Ads) setTimeout(() => window.Ads.interstitial(), 300);
     });
   });
 
@@ -78,6 +70,11 @@
   showScreen('menu-screen');
 
   setTimeout(() => {
-    if (window.Ads) window.Ads.interstitial();
-  }, 3000);
+    if (window.Ads) {
+      window.Ads.interstitial();
+      window.Ads.dailyBonus().then(claimed => {
+        if (claimed) alert('¡Bonus diario reclamado! 🎉');
+      });
+    }
+  }, 2000);
 })();

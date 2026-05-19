@@ -43,7 +43,7 @@
 
     playSequence();
 
-    if (round > 0 && round % 3 === 0) {
+    if (round > 0 && round % 2 === 0) {
       adBtn.textContent = '🎬 Ver anuncio + bonus';
       adBtn.classList.remove('hidden');
     }
@@ -100,9 +100,9 @@
   document.addEventListener('adReward', e => {
     if (e.detail === 'simon') {
       adBtn.classList.add('hidden');
-      round += 3;
+      round += 5;
       roundEl.textContent = `Ronda: ${round}`;
-      status.textContent = '¡Bonus +3 rondas! 🎉';
+      status.textContent = '¡Bonus +5 rondas! 🎉';
       acceptingInput = true;
       pads.forEach(p => p.disabled = false);
     }

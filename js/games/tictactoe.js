@@ -106,6 +106,8 @@
       adBtn.classList.remove('hidden');
     } else {
       message.textContent = 'Empate 🤝';
+      adBtn.textContent = '🎬 Ver anuncio + bonus';
+      adBtn.classList.remove('hidden');
     }
     result.classList.remove('hidden');
   }
@@ -113,14 +115,8 @@
   document.addEventListener('adReward', e => {
     if (e.detail === 'tictactoe') {
       adBtn.classList.add('hidden');
-      if (state.includes(null)) {
-        message.textContent = '¡Revancha! Sigue jugando 🔄';
-        gameOver = false;
-        isPlayerTurn = true;
-        status.textContent = 'Tu turno (X)';
-      } else {
-        message.textContent = '¡Bonus activado! +50 puntos 🎉';
-      }
+      message.textContent = '¡Bonus activado! +100 puntos 🎉';
+      setTimeout(init, 1500);
     }
   });
 
