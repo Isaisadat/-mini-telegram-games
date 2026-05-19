@@ -83,7 +83,7 @@
       statusEl.textContent = `${wrong}/${maxWrong} errores`;
     }
 
-    if (adCount >= 3) {
+    if (adCount >= 2) {
       adBtn.textContent = '🎬 Ver anuncio + bonus';
       adBtn.classList.remove('hidden');
       adCount = 0;

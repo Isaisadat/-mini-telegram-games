@@ -43,7 +43,7 @@
 
     playSequence();
 
-    if (round > 0 && round % 2 === 0) {
+    if (round >= 3) {
       adBtn.textContent = '🎬 Ver anuncio + bonus';
       adBtn.classList.remove('hidden');
     }

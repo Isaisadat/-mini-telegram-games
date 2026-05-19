@@ -2,11 +2,25 @@
   'use strict';
 
   const screens = document.querySelectorAll('.screen');
+  let lastScreen = null;
 
   function showScreen(id) {
     screens.forEach(s => s.classList.remove('active'));
     const target = document.getElementById(id);
     if (target) target.classList.add('active');
+
+    if (lastScreen && lastScreen !== 'menu-screen' && id === 'menu-screen') {
+      if (window.Ads) window.Ads.interstitial();
+    }
+    if (id !== 'menu-screen') {
+      if (window.Ads) setTimeout(() => window.Ads.interstitial(), 800);
+    }
+    if (id === 'menu-screen') {
+      if (window.Ads) window.Ads.startTimer();
+    } else {
+      if (window.Ads) window.Ads.stopTimer();
+    }
+    lastScreen = id;
   }
 
   function onTap(el, handler) {
@@ -25,21 +39,20 @@
   document.querySelector('.menu-grid').addEventListener('click', e => {
     const btn = e.target.closest('.menu-btn');
     if (!btn) return;
+    if (window.Ads) window.Ads.interstitial();
     showScreen(`game-${btn.dataset.game}`);
-    if (window.Ads) setTimeout(() => window.Ads.interstitial(), 500);
   });
 
   document.querySelector('.menu-grid').addEventListener('touchend', e => {
     const btn = e.target.closest('.menu-btn');
     if (!btn) return;
+    if (window.Ads) window.Ads.interstitial();
     showScreen(`game-${btn.dataset.game}`);
-    if (window.Ads) setTimeout(() => window.Ads.interstitial(), 500);
   });
 
   document.querySelectorAll('[data-back]').forEach(el => {
     onTap(el, () => {
       showScreen('menu-screen');
-      if (window.Ads) window.Ads.interstitial();
     });
   });
 
@@ -47,7 +60,7 @@
     onTap(el, () => {
       const game = el.dataset.reset;
       document.dispatchEvent(new CustomEvent('resetGame', { detail: game }));
-      if (window.Ads) setTimeout(() => window.Ads.interstitial(), 300);
+      if (window.Ads) setTimeout(() => window.Ads.interstitial(), 400);
     });
   });
 
@@ -59,6 +72,7 @@
       try {
         await Ads.rewarded();
         document.dispatchEvent(new CustomEvent('adReward', { detail: game }));
+        if (window.Ads) setTimeout(() => window.Ads.interstitial(), 1000);
       } catch (e) {
         console.log('[Ads] error:', e);
       }
@@ -77,4 +91,8 @@
       });
     }
   }, 2000);
+
+  setTimeout(() => {
+    if (window.Ads) window.Ads.interstitial();
+  }, 15000);
 })();

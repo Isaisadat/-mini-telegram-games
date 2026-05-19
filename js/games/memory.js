@@ -73,6 +73,10 @@
       locked = true;
       moves++;
       updateStats();
+      if (moves % 4 === 0) {
+        adBtn.textContent = '🎬 Ver anuncio + bonus';
+        adBtn.classList.remove('hidden');
+      }
       const [a, b] = flipped;
       if (cards[a] === cards[b]) {
         cards[a] = null;

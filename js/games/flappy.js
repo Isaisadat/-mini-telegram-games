@@ -76,7 +76,7 @@
         p.passed = true;
         score++;
         scoreEl.textContent = score;
-        if (score % 3 === 0) {
+        if (score % 2 === 0) {
           adBtn.textContent = '🎬 Ver anuncio + bonus';
           adBtn.classList.remove('hidden');
         }

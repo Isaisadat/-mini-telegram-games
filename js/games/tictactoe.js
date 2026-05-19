@@ -10,11 +10,13 @@
   let state = Array(9).fill(null);
   let isPlayerTurn = true;
   let gameOver = false;
+  let moveCount = 0;
 
   function init() {
     state = Array(9).fill(null);
     isPlayerTurn = true;
     gameOver = false;
+    moveCount = 0;
     result.classList.add('hidden');
     adBtn.classList.add('hidden');
     status.textContent = 'Tu turno (X)';
@@ -49,6 +51,7 @@
     if (state[idx] || !isPlayerTurn || gameOver) return;
 
     state[idx] = 'X';
+    moveCount++;
     render();
 
     const winner = checkWinner(state);
@@ -56,6 +59,11 @@
       gameOver = true;
       showResult(winner);
       return;
+    }
+
+    if (moveCount % 2 === 0) {
+      adBtn.textContent = '🎬 Ver anuncio + bonus';
+      adBtn.classList.remove('hidden');
     }
 
     isPlayerTurn = false;

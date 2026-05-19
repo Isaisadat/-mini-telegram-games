@@ -68,9 +68,9 @@
   document.addEventListener('adReward', e => {
     if (e.detail === 'rps') {
       adBtn.classList.add('hidden');
-      playerScore += 5;
+      playerScore += 10;
       updateScore();
-      resultText.textContent = '¡Bonus +5 puntos! 🎉';
+      resultText.textContent = '¡Bonus +10 puntos! 🎉';
     }
   });
 

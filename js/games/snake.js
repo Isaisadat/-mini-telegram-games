@@ -44,6 +44,10 @@
       if (head.x === food.x && head.y === food.y) {
         score++;
         scoreEl.textContent = score;
+        if (score % 5 === 0) {
+          adBtn.textContent = '🎬 Ver anuncio + bonus';
+          adBtn.classList.remove('hidden');
+        }
         spawnFood();
       } else {
         snake.pop();

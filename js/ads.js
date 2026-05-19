@@ -7,10 +7,8 @@
     return new Promise((resolve, reject) => {
       function check(n) {
         if (typeof window[SDK_NAME] === 'function') {
-          console.log('[Ads] SDK loaded');
           resolve(true);
         } else if (n <= 0) {
-          console.warn('[Ads] SDK not loaded after retries');
           reject(new Error('SDK timeout'));
         } else {
           setTimeout(() => check(n - 1), 500);
@@ -20,38 +18,60 @@
     });
   }
 
+  let interstitialTimer = null;
+
+  function startInterstitialTimer() {
+    stopInterstitialTimer();
+    interstitialTimer = setInterval(() => {
+      showInterstitial();
+    }, 30000);
+  }
+
+  function stopInterstitialTimer() {
+    if (interstitialTimer) {
+      clearInterval(interstitialTimer);
+      interstitialTimer = null;
+    }
+  }
+
+  async function showInterstitial() {
+    try {
+      await waitForSDK(5);
+      window[SDK_NAME]({
+        type: 'inApp',
+        inAppSettings: {
+          frequency: 5,
+          capping: 0.02,
+          interval: 8,
+          timeout: 1,
+          everyPage: false
+        }
+      });
+    } catch (e) {}
+  }
+
   window.Ads = {
     async rewarded() {
       try {
         await waitForSDK();
-        console.log('[Ads] Showing rewarded ad');
         const result = await window[SDK_NAME]();
-        console.log('[Ads] Ad completed', result);
         return result;
       } catch (e) {
-        console.warn('[Ads] SDK unavailable, using fallback:', e.message);
-        await new Promise(r => setTimeout(r, 800));
+        await new Promise(r => setTimeout(r, 600));
         return 'fallback';
       }
     },
 
-    async interstitial() {
-      try {
-        await waitForSDK();
-        console.log('[Ads] Showing interstitial');
-        window[SDK_NAME]({
-          type: 'inApp',
-          inAppSettings: {
-            frequency: 5,
-            capping: 0.03,
-            interval: 10,
-            timeout: 2,
-            everyPage: false
-          }
-        });
-      } catch (e) {
-        console.warn('[Ads] Interstitial unavailable:', e.message);
-      }
+    interstitial() {
+      showInterstitial();
+    },
+
+    startTimer() {
+      startInterstitialTimer();
+    },
+
+    stopTimer() {
+      stopInterstitialTimer();
     },
 
     async dailyBonus() {
@@ -67,6 +87,4 @@
       }
     }
   };
-
-  console.log('[Ads] Module ready');
 })();
